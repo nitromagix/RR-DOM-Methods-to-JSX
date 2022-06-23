@@ -1,50 +1,35 @@
-let koalaContainer = document.createElement('div')
-
-koalaContainer.setAttribute('class', 'ui items')
+let koalaContainer = <div className="ui items"></div>;
 
 // Koala Card
 // koalas are in './public/koalas.js'
-koalas.forEach(koala => {
-    let koalaCard = document.createElement('div')
-    koalaCard.setAttribute('class', 'item')
-    koalaCard.style.cursor = 'pointer';
+koalas.forEach((koala) => {
+  let koalaCard = <div className="item" style={{ cursor: "pointer" }}></div>;
+  koalaCard.style.cursor = "pointer"; // style={{ cursor: "pointer" }} doesn't work
 
-    // Koala Card Image
-    let imageContainer = document.createElement('div')
-    let koalaImage = document.createElement('img')
+  // Koala Card Image
+  let imageContainer = <div className="image"></div>;
+  let koalaImage = <img src={koala.imageURL}></img>;
+  imageContainer.append(koalaImage);
 
-    imageContainer.setAttribute('class', 'image')
+  // Koala Card Content
+  let koalaContent = <div className="content"></div>;
 
-    koalaImage.setAttribute('src', koala.imageURL)
+  let header = <div className="header"></div>;
 
-    imageContainer.append(koalaImage)
+  header.append(koala.name);
 
-    // Koala Card Content
-    let koalaContent = document.createElement('div')
-    koalaContent.setAttribute('class', 'content')
+  let descriptionParagraph = <p></p>;
+  descriptionParagraph.append(koala.description);
 
-    let header = document.createElement('div')
-    header.setAttribute('class', 'header')
-    header.append(koala.name)
+  let descriptionContainer = <div className="description"></div>;
 
-    let descriptionParagraph = document.createElement('p')
-    descriptionParagraph.append(koala.description)
+  descriptionContainer.append(descriptionParagraph);
 
-    let descriptionContainer = document.createElement('div')
-    descriptionContainer.setAttribute('class', 'description')
-    descriptionContainer.append(descriptionParagraph)
+  koalaContent.append(header, descriptionContainer);
 
-    koalaContent.append(
-        header,
-        descriptionContainer
-    )
+  koalaCard.append(imageContainer, koalaContent);
 
-    koalaCard.append(
-        imageContainer,
-        koalaContent
-    )
+  koalaContainer.append(koalaCard);
+});
 
-    koalaContainer.append(koalaCard)
-})
-
-document.body.append(koalaContainer)
+document.body.append(koalaContainer);
